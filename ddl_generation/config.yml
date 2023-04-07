@@ -1,0 +1,20 @@
+# DDL Generation Script YAML
+
+source: Accellos 
+source_schema: DELFOUR
+source_table_list : []
+
+
+db_config:
+     url: 'jdbc:oracle:thin:@//10.202.93.160:1521/A11'
+     username: 'Brillio'
+     password: 'Polar1989'
+     driver: 'oracle.jdbc.driver.OracleDriver'
+
+hdfs_location : '/user/rkumbar/ddl/'
+
+impala_schema: 'antuit_test'
+
+audit_columns: Raw
+
+output_dir: '/home/rkumbar/ddl_generation/test/'

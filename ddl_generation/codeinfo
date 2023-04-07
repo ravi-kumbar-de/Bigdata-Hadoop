@@ -1,0 +1,12 @@
+1. Connect to source db get table list and create data frame out of it.
+2. Take one 100 rows of data from source table create data frame.
+3. using that data frame get schema that is ordered dictionary of column data types.
+4. In that schema if column type is timestamp change it to string type.
+5. Based on audit columns mentioned in config file , add audit columns  with string  data type at the  beginning of the dataframe with null values in each column and rest columns of the data frame
+6. Create single parquet file in mentioned hdfs location.
+7. Take that HDFS location and create parquet table on top of it in impala
+8. Now taake DDL out of it using show create table.
+9. modify the DDL in required format and save it in specified location.
+
+
+spark-submit --driver-class-path /home/rkumbar/ddl_generation/ojdbc6.jar --conf "spark.sql.parquet.writeLegacyFormat=true" script.py config.yml

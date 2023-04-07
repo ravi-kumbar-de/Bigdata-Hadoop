@@ -1,0 +1,18 @@
+
+Input: Tablename
+
+Fetch 10000 rows
+Create as parquet file in hdfs
+Create table using the parquet file. Need not include audit columns
+Read schema in dictionary - This will provide parquet native format datatypes from its internal sampling
+
+Sqlserver. SQL statement to query source database metadata, along with fields required for comment
+Fetch it in py dataframe
+Loop through column in order 
+For each column, lookup parquet schema dictionary to fetch datatype
+
+Concatenate string to create ddl statement, include comment, formatting, placeholder for database, filepath, fileformat
+Write to file 
+Execute using impala-shell
+
+
