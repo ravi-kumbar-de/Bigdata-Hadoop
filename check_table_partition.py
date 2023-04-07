@@ -5,8 +5,8 @@ import re
 
 
 def get_hive_connection():
-    #conn = connect(host='10.0.0.246', port=10000, auth_mechanism='GSSAPI', kerberos_service_name='hive')
-    conn = connect(host='10.0.0.107', port=21050, auth_mechanism='GSSAPI', kerberos_service_name='impala')
+   
+    conn = connect(host='', port=21050, auth_mechanism='GSSAPI', kerberos_service_name='impala')
     cursor = conn.cursor()
     return cursor
 
