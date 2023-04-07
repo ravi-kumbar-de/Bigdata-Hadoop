@@ -1,0 +1,83 @@
+conf_file: dedup.conf
+start time: 202011130918
+dedupe_test
+dedupe_test
+[201]
+dev
+dedup_schema_query:create database IF NOT EXISTS dedupe_test LOCATION 'hdfs://nameservice1/data/dev/deduped/dedupe_test'
+created dedup schema
+c_bat
+drop_dedup_table:drop table if exists dedupe_test.c_bat_temp
+dropped dedup table if already exists
+dedup_table_query:create external table dedupe_test.c_bat_temp like dedupe_test.c_bat LOCATION 'hdfs://nameservice1/data/dev/deduped/dedupe_test/c_bat_temp_202011130918'
+created dedup table
+select count(*) from dedupe_test.c_bat_temp where source_system_id in (201)
+Total Number of records in temp before insert:0
+comp_code exists
+duplicate_count_query: select count(*) from (Select *,row_number() over (partition by is_deleted,`id`, `comp_code`, `bat_tp_code`, `bat_num`, `bat_des`, `bat_stat`, `bat_date`, `op_code`, `ter_code`, `bat_num_entry`, `bat_last_audit_num`, `bat_cont_tot`, `bat_entry_tot`, `bat_accept_stat`, `bat_accept_code`, `bat_audit_spool`, `bat_final_spool`, `bat_rest1`, `bat_rest2`, `bat_rest3`, `bat_rest4`, `bat_rest5`, `bat_rest6`, `bat_rest7`, `bat_rest8`, `bat_rest9`, `bat_trans_date`, `cash_post_bank_code`, `whse_code_rest`, `cust_reps_code`, `err_text`, `bat_rem_text`, `create_date`, `create_op_code`, `mody_date`, `mody_op_code`, `version`, `bat_rest10`, `source_system_id` ORDER BY sequence desc) AS rn from dedupe_test.c_bat where source_system_id in (201))a where rn>1
+Number of duplicate records :0
+select count(*) from dedupe_test.c_bat where source_system_id in (201)
+Total Number of records :31702
+Percentage of duplication :0.0%
+dedup percentage forc_batless than 5%
+dedup script run is completed for c_bat
+end time: 202011130919
+
+---------------------
+
+conf_file: dedup.conf
+start time: 202011130918
+dedupe_test
+dedupe_test
+[201]
+dev
+dedup_schema_query:create database IF NOT EXISTS dedupe_test LOCATION 'hdfs://nameservice1/data/dev/deduped/dedupe_test'
+created dedup schema
+c_bat
+drop_dedup_table:drop table if exists dedupe_test.c_bat_temp
+dropped dedup table if already exists
+dedup_table_query:create external table dedupe_test.c_bat_temp like dedupe_test.c_bat LOCATION 'hdfs://nameservice1/data/dev/deduped/dedupe_test/c_bat_temp_202011130918'
+created dedup table
+select count(*) from dedupe_test.c_bat_temp where source_system_id in (201)
+Total Number of records in temp before insert:0
+comp_code exists
+duplicate_count_query: select count(*) from (Select *,row_number() over (partition by is_deleted,`id`, `comp_code`, `bat_tp_code`, `bat_num`, `bat_des`, `bat_stat`, `bat_date`, `op_code`, `ter_code`, `bat_num_entry`, `bat_last_audit_num`, `bat_cont_tot`, `bat_entry_tot`, `bat_accept_stat`, `bat_accept_code`, `bat_audit_spool`, `bat_final_spool`, `bat_rest1`, `bat_rest2`, `bat_rest3`, `bat_rest4`, `bat_rest5`, `bat_rest6`, `bat_rest7`, `bat_rest8`, `bat_rest9`, `bat_trans_date`, `cash_post_bank_code`, `whse_code_rest`, `cust_reps_code`, `err_text`, `bat_rem_text`, `create_date`, `create_op_code`, `mody_date`, `mody_op_code`, `version`, `bat_rest10`, `source_system_id` ORDER BY sequence desc) AS rn from dedupe_test.c_bat where source_system_id in (201))a where rn>1
+Number of duplicate records :0
+select count(*) from dedupe_test.c_bat where source_system_id in (201)
+Total Number of records :31702
+Percentage of duplication :0.0%
+dedup percentage forc_batless than 5%
+dedup script run is completed for c_bat
+end time: 202011130919
+[rkumbar@ip-172-23-66-158 accellos_dedupe_script]$ python3 dedup_script_accellos.py dedup.conf
+conf_file: dedup.conf
+start time: 202011130949
+dedupe_test
+dedupe_test
+[201]
+dev
+dedup_schema_query:create database IF NOT EXISTS dedupe_test LOCATION 'hdfs://nameservice1/data/dev/deduped/dedupe_test'
+created dedup schema
+c_bat
+drop_dedup_table:drop table if exists dedupe_test.c_bat_temp
+dropped dedup table if already exists
+dedup_table_query:create external table dedupe_test.c_bat_temp like dedupe_test.c_bat LOCATION 'hdfs://nameservice1/data/dev/deduped/dedupe_test/c_bat_temp_202011130949'
+created dedup table
+select count(*) from dedupe_test.c_bat_temp where source_system_id in (201)
+Total Number of records in temp before insert:0
+comp_code exists
+duplicate_count_query: select count(*) from (Select *,row_number() over (partition by is_deleted,`id`, `comp_code`, `bat_tp_code`, `bat_num`, `bat_des`, `bat_stat`, `bat_date`, `op_code`, `ter_code`, `bat_num_entry`, `bat_last_audit_num`, `bat_cont_tot`, `bat_entry_tot`, `bat_accept_stat`, `bat_accept_code`, `bat_audit_spool`, `bat_final_spool`, `bat_rest1`, `bat_rest2`, `bat_rest3`, `bat_rest4`, `bat_rest5`, `bat_rest6`, `bat_rest7`, `bat_rest8`, `bat_rest9`, `bat_trans_date`, `cash_post_bank_code`, `whse_code_rest`, `cust_reps_code`, `err_text`, `bat_rem_text`, `create_date`, `create_op_code`, `mody_date`, `mody_op_code`, `version`, `bat_rest10`, `source_system_id` ORDER BY sequence desc) AS rn from dedupe_test.c_bat where source_system_id in (201))a where rn>1
+Number of duplicate records :63404
+select count(*) from dedupe_test.c_bat where source_system_id in (201)
+Total Number of records :95106
+Percentage of duplication :66.66666666666666%
+set hive.variable.substitute=true; set logger.PerfLogger.level = ERROR; set hive.auto.convert.join = false; set hive.exec.dynamic.partition = true; set hive.exec.dynamic.partition.mode=nonstrict; set hive.vectorized.execution.enabled=true; set hive.vectorized.execution.reduce.enabled=true; set hive.cbo.enable=true; set hive.compute.query.using.stats=true; set hive.stats.fetch.column.stats=true; set hive.stats.fetch.partition.stats=true; SET hive.exec.compress.output = true; SET parquet.compression = snappy; set hive.mapjoin.smalltable.filesize; set hive.auto.convert.join.noconditionaltask.size;SET mapreduce.map.memory.mb=12288;SET mapreduce.reduce.memory.mb=12288; SET hive.merge.mapfiles = true; SET hive.merge.mapredfiles = true; SET hive.merge.size.per.task = 134217728; SET hive.merge.smallfiles.avgsize = 134217728; set hive.merge.tezfiles=true; set hive.exec.reducers.bytes.per.reducer=134217728; SET dfs.block.size=134217728; SET parquet.block.size=134217728; set hive.exec.max.dynamic.partitions=2000; set hive.exec.max.dynamic.partitions.pernode=2000; INSERT INTO TABLE dedupe_test.c_bat_temp PARTITION (facilityid) SELECT * from (select * from dedupe_test.c_bat where source_system_id not in (201) UNION ALL SELECT generated_dts, ingested_dts, facility_id, warehouse_facility_id, ingested_from ,is_deleted,sequence,row_id,`id`, `comp_code`, `bat_tp_code`, `bat_num`, `bat_des`, `bat_stat`, `bat_date`, `op_code`, `ter_code`, `bat_num_entry`, `bat_last_audit_num`, `bat_cont_tot`, `bat_entry_tot`, `bat_accept_stat`, `bat_accept_code`, `bat_audit_spool`, `bat_final_spool`, `bat_rest1`, `bat_rest2`, `bat_rest3`, `bat_rest4`, `bat_rest5`, `bat_rest6`, `bat_rest7`, `bat_rest8`, `bat_rest9`, `bat_trans_date`, `cash_post_bank_code`, `whse_code_rest`, `cust_reps_code`, `err_text`, `bat_rem_text`, `create_date`, `create_op_code`, `mody_date`, `mody_op_code`, `version`, `bat_rest10`, `source_system_id`, facilityid from (Select *,row_number() over (partition by is_deleted,`id`, `comp_code`, `bat_tp_code`, `bat_num`, `bat_des`, `bat_stat`, `bat_date`, `op_code`, `ter_code`, `bat_num_entry`, `bat_last_audit_num`, `bat_cont_tot`, `bat_entry_tot`, `bat_accept_stat`, `bat_accept_code`, `bat_audit_spool`, `bat_final_spool`, `bat_rest1`, `bat_rest2`, `bat_rest3`, `bat_rest4`, `bat_rest5`, `bat_rest6`, `bat_rest7`, `bat_rest8`, `bat_rest9`, `bat_trans_date`, `cash_post_bank_code`, `whse_code_rest`, `cust_reps_code`, `err_text`, `bat_rem_text`, `create_date`, `create_op_code`, `mody_date`, `mody_op_code`, `version`, `bat_rest10`, `source_system_id` ORDER BY sequence desc) AS rn from dedupe_test.c_bat where source_system_id in (201))a where rn=1 )b;
+total_count_query_temp1:select count(*) from dedupe_test.c_bat_temp where source_system_id in (201)
+Total Number of records in temp after dedup insert :31702
+drop_backup_table:drop table if exists dedupe_test.c_bat_bckup
+alter_stmt_for_rename : ALTER TABLE dedupe_test.c_bat RENAME TO dedupe_test.c_bat_bckup
+create_original :create external table dedupe_test.c_bat like dedupe_test.c_bat_temp LOCATION 'hdfs://nameservice1/data/dev/deduped/dedupe_test/c_bat_temp_202011130949'
+duplicate_count_query after dedup : select count(*) from (Select *,row_number() over (partition by is_deleted,`id`, `comp_code`, `bat_tp_code`, `bat_num`, `bat_des`, `bat_stat`, `bat_date`, `op_code`, `ter_code`, `bat_num_entry`, `bat_last_audit_num`, `bat_cont_tot`, `bat_entry_tot`, `bat_accept_stat`, `bat_accept_code`, `bat_audit_spool`, `bat_final_spool`, `bat_rest1`, `bat_rest2`, `bat_rest3`, `bat_rest4`, `bat_rest5`, `bat_rest6`, `bat_rest7`, `bat_rest8`, `bat_rest9`, `bat_trans_date`, `cash_post_bank_code`, `whse_code_rest`, `cust_reps_code`, `err_text`, `bat_rem_text`, `create_date`, `create_op_code`, `mody_date`, `mody_op_code`, `version`, `bat_rest10`, `source_system_id` ORDER BY sequence desc) AS rn from dedupe_test.c_bat where source_system_id in (201))a where rn>1
+Number of duplicate records after dedup :0
+dedup script run is completed for c_bat
+end time: 202011130952
